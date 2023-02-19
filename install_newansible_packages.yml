@@ -1,0 +1,17 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+- name: Is Bind Installed?
+  apt:
+    name:
+   -  " {{ item }} state=installed"
+  with_items:
+   - bind9
+   - bind9-doc
+   - dnsutils
+
+- name: Is Bind Started?
+  service: name=bind9 state=started
