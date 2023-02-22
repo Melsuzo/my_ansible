@@ -1,3 +1,4 @@
+
 ---
 
 - hosts: all
@@ -12,6 +13,46 @@
   - name: update repository index
     apt:
       update_cache: yes
+ 
+  -  name: create a new  user called mels
+     tags: new_user
+     user:
+       name: Mels
+       groups: root
+
+  - name: add ssh for Mels
+    tags: new_ssh
+    authorized_key:
+      user: Mels
+      key: " ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCtrk+kSCdWbVmgfKR1kWuWkc1m3sMl+hsi65RU+Xos0RvlN2yt6jmUxw5nVOFG38gegLpzRztBh/hcQ/+VlPVOr8f4EIwnA8UeqXtsWqG2z+fcvhz9ypkUoxMcSEaLlmthfhtsMOdnRXMMvOAu31ZbzbzRu0uXSHzTpfGQQROCBy9lRtNMbTNLNNh0qC3u0gH53r2OIzFloGI/3f6zBV5ad16pnpS2+nL74R0d/y1xp96o1ePhmlW9nELuqaXWnopXveG5Ujs+6fvuTbGEWSVAI0+0LS0oFVKU90PFVPuAOtR3t8/AiaE6EneEOdk1Ts7HQkUyBNUnmSBFscUT1KbJxXRz5/4Abv7Z7qHCgVNz4I8I+OmeEJiOhN+z57pFFjK4iFVLP7pUOqK4t504TV6inJ7fTCz7hAtpYbt2mM8PFdLKBLsqZrkKRK1UR3cy6gE/RCJQFMFQ9wQdH+yuoxLJbBtSwKfeYai3KgAXkZ1zJqhvaM2/Ja1ueInYjeXH51M= kali@kali "
+      
+
+  - name: add sudoers file for Mels
+    tags: new_ssh
+    copy:
+      src: sudoers_Mels
+      dest: /etc/sudoers.d/Mels
+      owner: root
+      group: root
+      mode:  0440 
+ 
+
+  -  name: start httpd for apache server
+     tags: filesite_apache
+     service:
+       name: httpd
+       state: started
+       enabled: yes
+     when: ansible_distribution == "Debian"
+
+  - name: copy default html file for site
+    tags: filesite
+    copy:
+      src: filesite.html
+      dest: /var/www/html/index.html
+      owner: root
+      group: root
+      mode: 0644
 
   - name: install apache2 package
     apt:
@@ -22,3 +63,21 @@
      apt:
        name: libapache2-mod-php
        state: latest
+
+- hosts: workstations
+  become: true
+  tasks:
+
+  - name: install unzip
+    package:
+      name: unzip
+ 
+  - name: imstall terraform
+    tags: tera
+    unarchive:
+      src: https://releases.hashicorp.com/terraform/1.3.9/terraform_1.3.9_linux_amd64.zip
+      dest: /usr/local/bin
+      remote_src: yes
+      mode: 0755
+      owner: root
+      group: root
