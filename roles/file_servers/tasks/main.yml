@@ -1,0 +1,8 @@
+-  name: install samba package (Debian)
+   tags: db,debian
+   apt:
+     name: samba
+     state: latest
+    when: ansible_distribution == "Debian"
+
+

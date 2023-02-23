@@ -1,0 +1,5 @@
+- name: add ssh key for Mels
+  authorized_key:
+    user: Mels
+    key: " ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCtrk+kSCdWbVmgfKR1kWuWkc1m3sMl+hsi65RU+Xos0RvlN2yt6jmUxw5nVOFG38gegLpzRztBh/hcQ/+VlPVOr8f4EIwnA8UeqXtsWqG2z+fcvhz9ypkUoxMcSEaLlmthfhtsMOdnRXMMvOAu31ZbzbzRu0uXSHzTpfGQQROCBy9lRtNMbTNLNNh0qC3u0gH53r2OIzFloGI/3f6zBV5ad16pnpS2+nL74R0d/y1xp96o1ePhmlW9nELuqaXWnopXveG5Ujs+6fvuTbGEWSVAI0+0LS0oFVKU90PFVPuAOtR3t8/AiaE6EneEOdk1Ts7HQkUyBNUnmSBFscUT1KbJxXRz5/4Abv7Z7qHCgVNz4I8I+OmeEJiOhN+z57pFFjK4iFVLP7pUOqK4t504TV6inJ7fTCz7hAtpYbt2mM8PFdLKBLsqZrkKRK1UR3cy6gE/RCJQFMFQ9wQdH+yuoxLJbBtSwKfeYai3KgAXkZ1zJqhvaM2/Ja1ueInYjeXH51M= kali@kali "
+                                                                                                                           
