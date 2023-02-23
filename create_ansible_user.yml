@@ -13,6 +13,12 @@
   - name: update repository index
     apt:
       update_cache: yes
+ 
+  -  name: create a new  user called mels
+     tags: new_user
+     user:
+       name: Mels
+       groups: root
 
   - name: add ssh for Mels
     tags: new_ssh
